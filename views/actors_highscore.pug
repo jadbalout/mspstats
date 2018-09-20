@@ -1,0 +1,51 @@
+extends layout
+
+block content
+    -function commas(nb) {
+    -   return nb.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    -}
+    include ad
+    br
+    .float-right
+        ul.pagination.justify-content-center
+            -if (page > 1)
+                li.page-item
+                    a.page-link(href="/highscores/actors/"+region+"/"+(parseInt(page)-1)+"/"+weekly)
+                        span(aria-hidden="true", style="text-shadow: none;") <
+            li.page-item
+                a.page-link(href="/highscores/actors/"+region+"/"+(parseInt(page)+1)+"/"+weekly)
+                    span(aria-hidden="true", style="text-shadow: none;") >
+    .float-left
+        -if(weekly == 0)    
+            input(id="weekly", type="checkbox", autocomplete="off")
+        -if(weekly == 1)    
+            input(id="weekly", type="checkbox", autocomplete="off", checked)
+        label(for="weekly") #{__("Recently Logged In")}
+    br
+    table.table.table-hover.table-dark
+        thead
+            tr
+                th(scope="col") #
+                th(scope="col") #{__("Movie Star")}
+                th(scope="col") #{__("Level")}
+                th(scope="col") #{__("Starcoins Earned")}
+                th(scope="col") #{__("Fame")}
+        tbody
+            each actor in data
+                tr
+                    th(scope="row")
+                        img(style="border-radius: 3px;border: 2px solid #FFF;", src="https://snapshots.mspcdns.com/v1/MSP/"+region+"/snapshot/MovieStar/"+actor['ActorId']+".jpg?modifiedOn=-2208988800000")
+                    th 
+                        a(target="_blank", href="/user/" + region + "/" + actor['ActorId']) #{actor['Name']}
+                    th=commas(actor['Level'])
+                    th=commas(actor['Fortune'])
+                    th=commas(parseInt(actor['Fame']))
+    br
+    include ad
+block specialJS
+    script.
+        $(document).ready(function() {
+            $('#weekly').change(function() {
+                window.location.href = "/highscores/actors/#{region}/#{page}/"+Number(this.checked);
+            });
+        });

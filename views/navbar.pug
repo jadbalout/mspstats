@@ -1,0 +1,21 @@
+block navbar
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-primary(style="padding: 20px")
+        a.navbar-brand(href="/") MSP Stats
+        button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarColor02", aria-controls="navbarColor02", aria-expanded="false", aria-label="Toggle navigation")
+            span.navbar-toggler-icon
+        #navbarColor02.collapse.navbar-collapse.justify-content-end
+            ul.navbar-nav
+                li.nav-item
+                    a.nav-link(href="https://mspforum.co") MSP Forum
+                li.nav-item
+                    a.nav-link(href="https://mspblog.co") MSP Blog
+                li.nav-item.dropdown
+                    a#navbarDropdown.nav-link.dropdown-toggle(href="#", role="button", data-toggle="dropdown", aria-haspopup="true", aria-expanded="false") #{__("Leaderboards")}
+                    .dropdown-menu-right.dropdown-menu(aria-labelledby="navbarDropdown")
+                        a.dropdown-item(href="/highscores/actors") #{__("Movie Stars")}
+                        a.dropdown-item(href="/highscores/movies") #{__("Movies")}
+                li.nav-item.dropdown
+                    a#navbarDropdown.nav-link.dropdown-toggle(href="#", role="button", data-toggle="dropdown", aria-haspopup="true", aria-expanded="false") #{__("Languages")}
+                    .dropdown-menu-right.dropdown-menu(aria-labelledby="navbarDropdown")
+                        a.dropdown-item(href="/en") English
+                        a.dropdown-item(href="/tr") Türk

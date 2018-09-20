@@ -1,0 +1,218 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+@import url(https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+::-webkit-scrollbar {
+    width: 14px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #007bff;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #111212;
+}
+
+body {
+	background-color: #1B1C1C;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	font-family: 'Droid Sans', sans-serif;
+	color: #FFF;
+	margin: 0;
+	height: 100%;
+	overflow-y: none;
+}
+
+img {
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
+a {
+	color: #1C96E8;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #24A7FF;
+	text-decoration: none;
+}
+
+#MSPStats {
+	text-shadow: 0px 1.5px 0px rgba(0, 0, 0, 0.45);
+	padding: 40px;
+}
+
+select {
+	border-radius: 0;
+	-webkit-appearance: none;
+	padding: 10px;
+}
+
+*:focus {
+    outline: none;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.btn-primary:focus {
+    border-color: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -webkit-appearance: none;
+}
+
+#clear {
+	clear: both;
+}
+
+#users {
+	width: 100%;
+	text-align: left;
+}
+
+.user {
+	display: inline-block;
+	margin-right: 15px;
+	margin-bottom: 20px;
+}
+
+.user > #name {
+	margin-top: 10px;
+	text-align: center;
+	font-size: 15px;
+}
+
+#userStats {
+	padding: 20px;
+	width: 1050px;
+	text-align: left;
+}
+
+#userStats > #fullPicture {
+	display: inline-block;
+	margin-right: 50px;
+}
+
+#userStats > #allStats {
+	display: inline-block;
+	vertical-align: top;
+}
+
+#userStats > #allStats > #status {
+	color: #cacaca;
+	word-wrap: break-word;
+}
+
+#regions > .region {
+	display: inline-block;
+	margin-right: 25px;
+	width: 240px;
+	height: 130px;
+	margin-bottom: 20px;
+	text-align: left;
+	cursor: pointer;
+}
+
+#regions > .region > .regionImage img {
+	height: 100%;
+	width: 100%;
+	border-radius: 2%;
+	border: 5px solid #FFF;
+}
+#regions > .region > .regionImage img {
+	transition: transform .2s;
+}
+#regions > .region > .regionImage img:hover {
+	transform: scale(0.9);
+	cursor: pointer;
+}
+
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+	#footer {
+		width: 80%;
+	}
+}
+
+/* iPads (landscape) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+	#footer {
+		width: 80%;
+	}
+}
+
+/* iPads (portrait) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+	#footer {
+		width: 80%;
+	}
+}
+
+/* Desktops and laptops ----------- */
+@media only screen 
+and (min-width : 1224px) {
+	#footer {
+		width: 80%;
+	}
+	#regions {
+		width: 90%;
+	}
+}
+
+/* Large screens ----------- */
+@media only screen 
+and (min-width : 1824px) {
+	#footer {
+		width: 80%;
+	}
+	#regions {
+		width: 90%;
+	}
+}
+
+/* Custom checkboxes */
+
+input[type=checkbox] { display:none; } /* to hide the checkbox itself */
+input[type=checkbox] + label:before {
+  font-family: FontAwesome;
+  display: inline-block;
+}
+
+input[type=checkbox] + label:before { content: "\f096"; } /* unchecked icon */
+input[type=checkbox] + label:before { letter-spacing: 10px; } /* space between checkbox and label */
+
+input[type=checkbox]:checked + label:before { content: "\f046"; } /* checked icon */
+input[type=checkbox]:checked + label:before { letter-spacing: 5px; } /* allow space for check mark */

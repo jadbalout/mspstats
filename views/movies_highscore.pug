@@ -1,0 +1,70 @@
+extends layout
+
+block content
+    -function cleanName(name) {
+    -   if(name.indexOf('\u001f') != -1)
+    -       name = name.split('\u001f')[0];
+    -   if(name.indexOf('\u001d') != -1) {
+    -       name = name.split('\u001d');
+    -       name = name.length > 1 ? name[1] : name[0];
+    -   }
+    -   return name
+    -}
+    - function formatId(id) {
+    -   var strReturn = "" + parseInt(id / 1000000000) + "_";
+    -   strReturn += parseInt(id / 1000000) % 1000 + "_";
+    -   strReturn += parseInt(id / 1000) % 1000 + "_";
+    -   strReturn += id % 1000;
+    -   strReturn += ".jpg";
+    -   return strReturn;
+    -}
+    -function commas(nb) {
+    -   return nb.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    -}
+    include ad
+    br
+    .float-right
+        ul.pagination.justify-content-center
+            -if (page > 1)
+                li.page-item
+                    a.page-link(href="/highscores/movies/"+region+"/"+(parseInt(page)-1)+"/"+weekly)
+                        span(aria-hidden="true", style="text-shadow: none;") <
+            li.page-item
+                a.page-link(href="/highscores/movies/"+region+"/"+(parseInt(page)+1)+"/"+weekly)
+                    span(aria-hidden="true", style="text-shadow: none;") >
+    .float-left
+        -if(weekly == 0)    
+            input(id="weekly", type="checkbox", autocomplete="off")
+        -if(weekly == 1)    
+            input(id="weekly", type="checkbox", autocomplete="off", checked)
+        label(for="weekly") #{__("This Week")}
+    br
+    table.table.table-hover.table-dark
+        thead
+            tr
+                th(scope="col") #
+                th(scope="col") #{__("Movie Name")}
+                th(scope="col") #{__("Views")}
+                th(scope="col") #{__("Starcoins Earned")}
+                th(scope="col") #{__("Average Rating")}
+                th(scope="col") #{__("Creator")}
+        tbody
+            each movie in data
+                tr
+                    th(scope="row")
+                        img(style="border-radius: 3px;border: 2px solid #FFF;width:196px;height:100px;", src="https://snapshots.mspcdns.com/v1/snapshots/MSP_"+region+"_movie_"+formatId(movie['MovieId']))
+                    th #{cleanName(movie['Name'])}
+                    th=commas(movie['WatchedActorCount'])
+                    th=commas(movie['StarCoinsEarned'])
+                    th=movie['AverageRating']
+                    th 
+                        a(target="_blank", href="/user/" + region + "/" + movie['ActorId']) #{movie['ActorName']}
+    br
+    include ad
+block specialJS
+    script.
+        $(document).ready(function() {
+            $('#weekly').change(function() {
+                window.location.href = "/highscores/movies/#{region}/#{page}/"+Number(this.checked);
+            });
+        });

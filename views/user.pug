@@ -1,0 +1,77 @@
+extends layout
+block content
+    br
+    include ad
+    br
+    br
+    - function dateToYMD(date) {
+    -   var d = date.getDate();
+    -   var m = date.getMonth() + 1;
+    -   var y = date.getFullYear();
+    -   return '' + y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
+    - }
+    -function cleanName(name) {
+    -   return name.length > 13 ? name.slice(0, 10)+"...":name;
+    -}
+    -var perc = data['specialFriends'].length <= 0 ? "100%":"49%";
+    #userStats(style="width:100%;")
+        #fullPicture(style="max-width:13%;")
+            img(style="width:100%;height: auto;", onerror="document.getElementById('fullPicture').remove();", src=data['fullPicture'])
+        #allStats(style="width:75%;")
+            h3(style="display:inline-block") #{data['username']}
+            #userBadges.float-right
+                - if(data['isVIP'])
+                    img#vipBadge(width=45, height=40, src="/images/vip/"+data['vipTier']+".png", style="display:inline-block;")
+            br
+            span#status #[i #{data['status']['text'].split('\u001e')[0]}]
+            br
+            br
+            #leftInfo(style="display:inline-block;width:"+perc+";")
+                p #[b #{__("Gender")}:] <i class="fa fa-#{data['gender'].toLowerCase()}" aria-hidden="true"></i> #{data['gender']} 
+                p #[b #{__("Level")}:] #{data['level'] || 0}
+                p #[b #{__("Fame")}:] #{data['fame'] || 0}
+                p #[b #{__("Diamonds")}:] #{data['diamonds'] || 0}
+                p #[b #{__("Starcoins")}:] #{data['starCoins'] || 0} 
+                p #[b #{__("Fortune")}:] #{data['fortune'] || 0} 
+                p #[b #{__("VIP Days")}:] #{data['VIPDays'] || 0} 
+                p #[b #{__("Friend Count")}:] #{data['friendCount'] || 0}
+                p #[b #{__("VIP Friend Count")}:] #{data['VIPFriendCount'] || 0}
+                p #[b #{__("Last Login")}:] #{dateToYMD(new Date(data['lastLogin'])) || __("Never")}        
+            -if(perc == "49%")
+                #rightInfo.float-right(style="display:inline-block;width:50%;text-align:center;")
+                    each friend, index in data['specialFriends'].reverse()
+                        - if((index+1) % 2 !== 0)
+                            br
+                        #relationshipBox.user                    
+                            #picture(style="position:relative;")
+                                img(style="cursor: pointer;", src="https://snapshots.mspcdns.com/v1/MSP/"+region+"/snapshot/MovieStar/"+friend.id+".jpg?modifiedOn=-2208988800000", onclick="location.href = '/user/"+region+"/"+friend.id+"'", onerror="this.onerror=null;this.src='/images/no_image_available.jpeg';", width=100, height=100)
+                                - if (friend.type == 'boyfriend')
+                                    i.fa.fa-heart(aria-hidden="true", style="color:red;position:absolute;bottom:0;right:0;")
+                            #name
+                                | #[a(href="/user/"+region+"/"+friend['id']) #{cleanName(friend['name'])}]
+            -else
+                #rightInfo
+    br
+    include ad
+block specialJS
+    script(src="/js/moment.min.js", type="text/javascript")
+    script.
+        function updateWindow() {
+            var displayType = ((window.innerWidth > 0) ? window.innerWidth : screen.width) > 560 ? 'inline-block':'';
+            $("#leftInfo").css("display", displayType);
+            if(displayType == '') {
+                $("#rightInfo").removeClass('float-right');
+                $("#rightInfo").css('width', "100%");
+                $("#leftInfo").css("width", '100%');        
+            } else {
+                $("#rightInfo").addClass("float-right");
+                $("#rightInfo").css('width', "#{data['specialFriends'].length <= 0 ? '0%':'50%'}");
+                $("#leftInfo").css("width", "#{perc}");                    
+            }
+        }
+        $(document).ready(function () {
+            updateWindow();
+            $(window).resize(function() {
+                updateWindow();
+            });
+        });

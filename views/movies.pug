@@ -1,0 +1,14 @@
+extends layout
+block content
+    br
+    include ad
+    br
+    #regions
+        - var regions = ["US", "UK", "CA", "AU", "NZ", "DE", "DK", "FR", "PL", "NL", "SE", "NO", "FI", "TR", "IE", "ES"]
+        each region in regions
+            .region
+                a.regionImage(href="/highscores/movies/"+region)
+                    img(src='https://mspstats.co/images/flags/'+region+'.png')
+    br
+    include ad
+    br
